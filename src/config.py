@@ -12,11 +12,11 @@ BERT_DIR = '/home/mqq/geodge/BERT/model/chinese_L-12_H-768_A-12'
 def get_connection_news():
 
     conn = pymysql.connect(
-        host    = 'commonspideroutter.mysql.rds.aliyuncs.com',
+        host    = '',
         port    = 3306,
-        user    = 'dengtacj',
-        passwd  = 'Dengtacj2015',
-        db      = 'db_spider',
+        user    = '',
+        passwd  = '',
+        db      = '',
         charset = 'utf8',
     )
 
