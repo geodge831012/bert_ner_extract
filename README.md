@@ -1,0 +1,2 @@
+# bert_ner_extract
+利用bert对资讯新闻重的人名和机构名等做抽取
