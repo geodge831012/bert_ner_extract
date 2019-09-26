@@ -3,6 +3,15 @@
 
 利用参考此项目，https://github.com/macanv/BERT-BiLSTM-CRF-NER
 
+放在目录BERT-BiLSTM-CRF-NER中
+
+
+目录data_ner中是训练及测试的样本
+
+
+目录src是自己开发的代码，其中src/ner_extract.py是基于BERT-BiLSTM-CRF-NER/terminal_predict.py做的定制化修改，是自己程序的入口
+
+
 部分理解：
 1.训练的命令如下
 
