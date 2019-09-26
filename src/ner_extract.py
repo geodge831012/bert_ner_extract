@@ -86,43 +86,37 @@ def predict_online():
         return input_ids, input_mask, segment_ids, label_ids
 
     # 获取处理好的资讯新闻数据
-    rst_news_list = news_provider.proc_all_news(news_provider.get_news())
+    news_list = news_provider.proc_all_news()
 
     global graph
     with graph.as_default():
         print(id2label)
-        for i in range(len(rst_news_list)):
-            sentence = rst_news_list[i]
+        for i in range(len(news_list)):
+            news_info = news_list[i]
 
-            start = datetime.now()
-            if len(sentence) < 2:
-                print(sentence)
-                continue
-            sentence = tokenizer.tokenize(sentence)
-            # print('your input is:{}'.format(sentence))
-            input_ids, input_mask, segment_ids, label_ids = convert(sentence)
+            sentence_list = news_info["sentence_list"]
 
-            feed_dict = {input_ids_p: input_ids,
-                         input_mask_p: input_mask}
-            # run session get current feed_dict result
-            # print("+++++++++++++++++++++++++++++++++++++++++++++++++++++")
-            # print(pred_ids)
-            # print("+++++++++++++++++++++++++++++++++++++++++++++++++++++")
-            # print(feed_dict)
-            # print("+++++++++++++++++++++++++++++++++++++++++++++++++++++")
-            
-            pred_ids_result = sess.run([pred_ids], feed_dict)
+            for j in range(len(sentence_list)):
+                sentence = sentence_list[j]
 
-            pred_label_result = convert_id_to_label(pred_ids_result, id2label)
-            # print("=========================================")
-            # print(pred_label_result)
-            # print("=========================================")
-            #todo: 组合策略
-            result = strage_combined_link_org_loc(sentence, pred_label_result[0])
-            # print("=========================================")
-            # print(result)
-            # print("=========================================")
-            print('time used: {} sec'.format((datetime.now() - start).total_seconds()))
+                start = datetime.now()
+                if len(sentence) < 2:
+                    print(sentence)
+                    continue
+                sentence = tokenizer.tokenize(sentence)
+                # print('your input is:{}'.format(sentence))
+                input_ids, input_mask, segment_ids, label_ids = convert(sentence)
+
+                feed_dict = {input_ids_p: input_ids,
+                             input_mask_p: input_mask}
+                # run session get current feed_dict result
+                pred_ids_result = sess.run([pred_ids], feed_dict)
+
+                pred_label_result = convert_id_to_label(pred_ids_result, id2label)
+                # todo: 组合策略
+                ner_info = strage_combined_link_org_loc(sentence, pred_label_result[0])
+                print(ner_info)
+                print('time used: {} sec'.format((datetime.now() - start).total_seconds()))
 
 def convert_id_to_label(pred_ids_result, idx2label):
     """
@@ -131,11 +125,6 @@ def convert_id_to_label(pred_ids_result, idx2label):
     :param idx2label:
     :return:
     """
-
-    # print("+++++++++++++++++++++++++++++++++++++++++++++++++++++")
-    # print(pred_ids_result)
-    # print(idx2label)
-    # print("+++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
     result = []
     for row in range(batch_size):
@@ -160,15 +149,8 @@ def strage_combined_link_org_loc(tokens, tags):
     :return:
     """
 
-    # print("tokens")
-    # print(len(tokens))
-    # print(tokens)
-    # print("tags")
-    # print(len(tags))
-    # print(tags)
-
-    for i in range(len(tokens)):
-        print("%s %s" % (tokens[i], tags[i]))
+    # for i in range(len(tokens)):
+    #     print("%s %s" % (tokens[i], tags[i]))
 
     def print_output(data, type):
         line = []
@@ -176,6 +158,12 @@ def strage_combined_link_org_loc(tokens, tags):
         for i in data:
             line.append(i.word)
         print(', '.join(line))
+
+    def get_info(data):
+        info_list = []
+        for i in data:
+            info_list.append(i.word)
+        return info_list
 
     params = None
     eval = Result(params)
@@ -185,6 +173,13 @@ def strage_combined_link_org_loc(tokens, tags):
     print_output(loc, 'LOC')
     print_output(person, 'PER')
     print_output(org, 'ORG')
+
+    ner_info = {}
+    ner_info["location"]    = get_info(loc)
+    ner_info["person"]      = get_info(person)
+    ner_info["org"]         = get_info(org)
+
+    return ner_info
 
 
 def convert_single_example(ex_index, example, label_list, max_seq_length, tokenizer, mode):
