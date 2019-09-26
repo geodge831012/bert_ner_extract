@@ -1,5 +1,0 @@
-[2019-09-25 19:26:02,709][news_provider.py][pid:19314][tid:140417014204160][func:get_news][line:10][INFO] Begin get_news()
-[2019-09-25 19:27:37,737][news_provider.py][pid:19323][tid:140258938083072][func:get_news][line:10][INFO] Begin get_news()
-[2019-09-25 19:28:03,429][news_provider.py][pid:19333][tid:140304595744512][func:get_news][line:10][INFO] Begin get_news()
-[2019-09-25 19:28:03,802][news_provider.py][pid:19333][tid:140304595744512][func:get_news][line:19][INFO] sql:select content from news_page limit 100
-[2019-09-25 19:28:04,763][news_provider.py][pid:19333][tid:140304595744512][func:get_news][line:23][INFO] get news, count=100
