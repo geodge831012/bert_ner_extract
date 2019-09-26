@@ -94,7 +94,11 @@ def predict_online():
         for i in range(len(news_list)):
             news_info = news_list[i]
 
+            news_id       = news_info["id"]
             sentence_list = news_info["sentence_list"]
+            news_info["location"]   = []
+            news_info["person"]     = []
+            news_info["org"]        = []
 
             for j in range(len(sentence_list)):
                 sentence = sentence_list[j]
@@ -115,8 +119,12 @@ def predict_online():
                 pred_label_result = convert_id_to_label(pred_ids_result, id2label)
                 # todo: 组合策略
                 ner_info = strage_combined_link_org_loc(sentence, pred_label_result[0])
-                print(ner_info)
-                print('time used: {} sec'.format((datetime.now() - start).total_seconds()))
+                news_info["location"]   = ner_info["location"]
+                news_info["person"]     = ner_info["person"]
+                news_info["org"]        = ner_info["org"]
+                print(news_info)
+                print("==============================================")
+                #print('time used: {} sec'.format((datetime.now() - start).total_seconds()))
 
 def convert_id_to_label(pred_ids_result, idx2label):
     """
