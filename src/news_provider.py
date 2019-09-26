@@ -64,7 +64,7 @@ def proc_news(news_content):
         proc_sentence += sentence
 
     # 最后一部分获取
-    proc_sentence += sentence
+    rst_sentence_list.append(proc_sentence)
 
     return rst_sentence_list
 
