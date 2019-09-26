@@ -178,9 +178,9 @@ def strage_combined_link_org_loc(tokens, tags):
     if len(tokens) > len(tags):
         tokens = tokens[:len(tags)]
     person, loc, org = eval.get_result(tokens, tags)
-    print_output(loc, 'LOC')
-    print_output(person, 'PER')
-    print_output(org, 'ORG')
+    # print_output(loc, 'LOC')
+    # print_output(person, 'PER')
+    # print_output(org, 'ORG')
 
     ner_info = {}
     ner_info["location"]    = get_info(loc)
