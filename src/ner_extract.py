@@ -122,9 +122,14 @@ def predict_online():
                 news_info["location"]   += ner_info["location"]
                 news_info["person"]     += ner_info["person"]
                 news_info["org"]        += ner_info["org"]
-                print(news_info)
-                print("==============================================")
                 #print('time used: {} sec'.format((datetime.now() - start).total_seconds()))
+
+            news_info["location"]   = list(set(ner_info["location"]))
+            news_info["person"]     = list(set(ner_info["person"]))
+            news_info["org"]        = list(set(ner_info["org"]))
+            print(news_info)
+            print("==============================================")
+
 
 def convert_id_to_label(pred_ids_result, idx2label):
     """
