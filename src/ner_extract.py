@@ -119,9 +119,9 @@ def predict_online():
                 pred_label_result = convert_id_to_label(pred_ids_result, id2label)
                 # todo: 组合策略
                 ner_info = strage_combined_link_org_loc(sentence, pred_label_result[0])
-                news_info["location"]   = ner_info["location"]
-                news_info["person"]     = ner_info["person"]
-                news_info["org"]        = ner_info["org"]
+                news_info["location"]   += ner_info["location"]
+                news_info["person"]     += ner_info["person"]
+                news_info["org"]        += ner_info["org"]
                 print(news_info)
                 print("==============================================")
                 #print('time used: {} sec'.format((datetime.now() - start).total_seconds()))
