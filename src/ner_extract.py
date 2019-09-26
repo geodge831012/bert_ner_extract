@@ -124,9 +124,9 @@ def predict_online():
                 news_info["org"]        += ner_info["org"]
                 #print('time used: {} sec'.format((datetime.now() - start).total_seconds()))
 
-            news_info["location"]   = list(set(ner_info["location"]))
-            news_info["person"]     = list(set(ner_info["person"]))
-            news_info["org"]        = list(set(ner_info["org"]))
+            news_info["location"]   = list(set(news_info["location"]))
+            news_info["person"]     = list(set(news_info["person"]))
+            news_info["org"]        = list(set(news_info["org"]))
             print(news_info)
             print("==============================================")
 
