@@ -22,6 +22,10 @@ python3.6 /usr/local/bin/bert-base-ner-train \
     -bert_config_file /home/mqq/geodge/BERT/model/chinese_L-12_H-768_A-12/bert_config.json \
     -vocab_file /home/mqq/geodge/BERT/model/chinese_L-12_H-768_A-12/vocab.txt
 
+bert-base-ner-train就是启动了pip安装的bert_base的run.py来训练的，但是直接使用github上的run.py，会报显存不够（16GB不够）
+
+所以还是要通过pip install bert_base来安装系统
+
 
 2.通过服务的方式启动ner服务
 
